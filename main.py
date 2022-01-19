@@ -125,6 +125,13 @@ class MainWindow(QMainWindow):
             self.ui.price_manager.isChecked()
         ))
 
+        # manager page -- counts
+        self.ui.branchchoosecount_counts.currentIndexChanged.connect(lambda: self.refresh_counts(segment='branch'))
+        self.ui.positionchoose_counts.currentIndexChanged.connect(lambda: self.refresh_counts(segment='position'))
+        self.ui.manufacturerchoose_counts.currentIndexChanged.connect(
+            lambda: self.refresh_counts(segment='manufacturer'))
+        self.ui.cartypechoose_counts.currentIndexChanged.connect(lambda: self.refresh_counts(segment='cartype'))
+
         # IT page
         self.ui.refrehsbuttonit.clicked.connect(lambda: self.set_widget(self.ui.it))
         self.ui.profilebuttonit.clicked.connect(lambda: self.set_widget(self.ui.profile))
@@ -270,6 +277,22 @@ class MainWindow(QMainWindow):
             self.ui.status_main.show()
             self.ui.loading_icon.show()
 
+    # MANAGER SECTION - COUNTS SECTION METHOD
+    def refresh_counts(self, segment: str):
+        if segment == 'branch':
+            index = self.ui.branchchoosecount_counts.currentIndex()
+            self.ui.employeecount_counts.setText(f"Employee count: {self._branches[index][-1]}")
+            self.ui.productcount_counts.setText(f"Product count: {self._branches[index][-2]}")
+        elif segment == 'position':
+            index = self.ui.positionchoose_counts.currentIndex()
+            self.ui.employeenrolled.setText(f"Employee enrolled: {self._position[index][-1]}")
+        elif segment == 'manufacturer':
+            index = self.ui.manufacturerchoose_counts.currentIndex()
+            self.ui.manu_onsale_counts.setText(f"Product on sale: {self._manufacturer[index][-1]}")
+        else:
+            index = self.ui.cartypechoose_counts.currentIndex()
+            self.ui.cartype_onsale_counts.setText(f"Product on sale: {self._cartypes[index][-1]}")
+
     # MANAGER SECTION - ENABLER METHODS
     def enable_gender(self, int):
         if self.ui.gendercheckboxemployee_manager.isChecked():
@@ -295,6 +318,7 @@ class MainWindow(QMainWindow):
     # MANAGER SECTION - EMPLOYEE METHODS
     def show_employee_table(self, first_name: bool, last_name: bool, gender: bool, age: bool, position: bool,
                             address: bool, phoneno: bool, datejoined: bool):
+        employee_count = 0
         self.set_status("Querying and adding employees to table...")
         # clear the table
         while self._table.rowCount() > 0:
@@ -378,9 +402,10 @@ class MainWindow(QMainWindow):
             # finally, check all the checker booleans. If all are True then append them to the table, else skip them
             if show_gender and show_age and show_position:
                 self._table.showRow(row)
+                employee_count += 1
             else:
                 self._table.hideRow(row)
-        self.ui.employeecount_manager.setText(f'Employee count: {self._table.rowCount()}')
+        self.ui.employeecount_manager.setText(f'Employee count: {employee_count}')
         self.set_status("OK")
 
     # MANAGER SECTION - BRANCH METHODS
@@ -389,16 +414,19 @@ class MainWindow(QMainWindow):
         branch = _database.retrieve_branch()
         self.ui.branchchoose_manager.setCurrentIndex(0)
         self.ui.branchchoose_manager_2.setCurrentIndex(0)
+        self.ui.branchchoosecount_counts.setCurrentIndex(0)
         self.change_branch_desc_product(0)
         if self._branches != branch:
             self._branches = branch
             self.ui.branchchoose_manager.clear()
             self.ui.branchchoose_manager_2.clear()
+            self.ui.branchchoosecount_counts.clear()
             self.ui.branchchoose_manager.addItems(["All"])
             self.ui.branchchoose_manager_2.addItems(["All"])
             for place in branch:
                 self.ui.branchchoose_manager.addItems([place[1]])
                 self.ui.branchchoose_manager_2.addItems([place[1]])
+                self.ui.branchchoosecount_counts.addItems([place[1]])
         self.set_status("OK")
 
     def change_branch_description(self, int):
@@ -410,9 +438,11 @@ class MainWindow(QMainWindow):
             if index == -1:
                 self.ui.addresslabel_manager.setText("Address: ")
                 self.ui.establishedlabel_manager.setText("Established: ")
+                self.ui.employeecount_manager_2.setText("Employee count in branch: ")
             else:
                 self.ui.addresslabel_manager.setText(f"Address: {self._branches[index][2]}")
-                self.ui.establishedlabel_manager.setText(f"Established: {self._branches[index][-1]}")
+                self.ui.establishedlabel_manager.setText(f"Established: {self._branches[index][3]}")
+                self.ui.employeecount_manager_2.setText(f"Employee count in branch: {self._branches[index][-1]}")
         except IndexError:
             pass
         self.set_status("OK")
@@ -442,13 +472,17 @@ class MainWindow(QMainWindow):
         self.ui.positionchoose.setCurrentIndex(0)
         self.ui.selectposition.setCurrentIndex(0)
         self.ui.position_addedit_it.setCurrentIndex(0)
+        self.ui.positionchoose_counts.setCurrentIndex(0)
         if position != self._position:
+            self._position = position
             self.ui.selectposition.clear()
             self.ui.position_addedit_it.clear()
+            self.ui.positionchoose_counts.clear()
             for pos in position:
                 self.ui.selectposition.addItems([pos[1]])
                 self.ui.position_addedit_it.addItems([pos[1]])
-        self._position = position
+                self.ui.positionchoose_counts.addItems([pos[1]])
+        # self._position = position
         self.set_status("OK")
 
     def refresh_manufacturer(self):
@@ -457,13 +491,22 @@ class MainWindow(QMainWindow):
         self.ui.manufacturerchoose.setCurrentIndex(0)
         self.ui.selectmanufacturer.setCurrentIndex(0)
         self.ui.manufacturerchooseproduct.setCurrentIndex(0)
+        self.ui.manufacturerchoose_counts.setCurrentIndex(0)
+        self.ui.manuselect_manager.setCurrentIndex(0)
         if manufacturers != self._manufacturer:
+            self._manufacturer = manufacturers
             self.ui.selectmanufacturer.clear()
             self.ui.manufacturerchooseproduct.clear()
+            self.ui.manufacturerchoose_counts.clear()
+            self.ui.manuselect_manager.clear()
+            self.ui.manuselect_manager.addItems(["All"])
             for manufacturer in manufacturers:
                 self.ui.selectmanufacturer.addItems([manufacturer[1]])
                 self.ui.manufacturerchooseproduct.addItems([manufacturer[1]])
-        self._manufacturer = manufacturers
+                self.ui.manufacturerchoose_counts.addItems([manufacturer[1]])
+                self.ui.manuselect_manager.addItems([manufacturer[1]])
+
+        # self._manufacturer = manufacturers
         self.set_status("OK")
 
     def refresh_cartype_it(self):
@@ -490,7 +533,10 @@ class MainWindow(QMainWindow):
             self._cartypes = types
             self.ui.cartypechoose_manager.clear()
             self.ui.cartypechoose_manager.addItems(["All"])
-            self.ui.cartypechoose_manager.addItems([i[1] for i in self._cartypes])
+            self.ui.cartypechoose_counts.clear()
+            for tipe in self._cartypes:
+                self.ui.cartypechoose_manager.addItems([tipe[1]])
+                self.ui.cartypechoose_counts.addItems([tipe[1]])
         self.set_status("OK")
 
     # MANAGER SECTION - ENABLER METHODS
@@ -545,6 +591,8 @@ class MainWindow(QMainWindow):
     def show_product_table(self, cartype: bool, carname: bool, year_released: bool, top_speed: bool, horse_power: bool,
                            seat_count: bool, length: bool, width: bool, date_added: bool, price: bool):
         self.set_status("Querying and adding products to table...")
+        product_count = 0
+
         # clear the table
         while self._product_table.rowCount() > 0:
             self._product_table.removeRow(0)
@@ -570,6 +618,7 @@ class MainWindow(QMainWindow):
         # appending products into the table
         for car in self._product_list:
             # checker booleans
+            show_manufacturer = True
             show_type = True
             show_year_released = True
             show_top_speed = True
@@ -635,13 +684,17 @@ class MainWindow(QMainWindow):
                     show_price = True
                 else:
                     show_price = False
+            if self.ui.manuselect_manager.currentText() != "All":
+                if self.ui.manuselect_manager.currentText() != car[1]:
+                    show_manufacturer = False
 
-            if (show_type and show_year_released and show_top_speed and show_horse_power and show_seat_count and
+            if (show_manufacturer and show_type and show_year_released and show_top_speed and show_horse_power and show_seat_count and
                     show_length and show_width and show_price):
                 self._product_table.showRow(row)
+                product_count += 1
             else:
                 self._product_table.hideRow(row)
-        self.ui.productcount_manager.setText(f'Product count: {self._product_table.rowCount()}')
+        self.ui.productcount_manager.setText(f'Product count: {product_count}')
         self.set_status("OK")
 
     def change_branch_desc_product(self, int):
@@ -653,9 +706,11 @@ class MainWindow(QMainWindow):
             if index == -1:
                 self.ui.addresslabel_manager_2.setText("Address: ")
                 self.ui.establishedlabel_manager_2.setText("Established: ")
+                self.ui.productcount_branch.setText("Product count in branch: ")
             else:
                 self.ui.addresslabel_manager_2.setText(f"Address: {self._branches[index][2]}")
-                self.ui.establishedlabel_manager_2.setText(f"Established: {self._branches[index][-1]}")
+                self.ui.establishedlabel_manager_2.setText(f"Established: {self._branches[index][3]}")
+                self.ui.productcount_branch.setText(f"Product count in branch: {self._branches[index][-1]}")
         except IndexError:
             pass
         self.set_status("OK")
@@ -688,8 +743,8 @@ class MainWindow(QMainWindow):
 
     def add_branch(self):
         self.set_status("Adding branch to database...")
-        branch_name = self.ui.branchname_addedit_it.text()
-        address = self.ui.address_addedit_it.toPlainText()
+        branch_name = self.ui.branchname_addedit_it.text().strip()
+        address = self.ui.address_addedit_it.toPlainText().strip()
         established = self.ui.established_addedit_it.value()
         if int(established) < 2000:
             self.show_message_box("Please enter a valid year")
@@ -721,8 +776,8 @@ class MainWindow(QMainWindow):
     def set_branch_fields(self, index):
         try:
             self.ui.branchname_addedit_it.setText(self._branches_it[index][1])
-            self.ui.address_addedit_it.setText(self._branches_it[index][-2])
-            self.ui.established_addedit_it.setValue(self._branches_it[index][-1])
+            self.ui.address_addedit_it.setText(self._branches_it[index][2])
+            self.ui.established_addedit_it.setValue(self._branches_it[index][3])
         except IndexError:
             pass
 
@@ -766,15 +821,18 @@ class MainWindow(QMainWindow):
         self.set_status("Refreshing positions...")
         self.ui.selectpositionframe.hide()
         self.ui.newpositionnameframe.hide()
+        self.ui.posdescframe_it.hide()
         self.ui.addpositionbt_it.hide()
         self.ui.editpositionbt_it.hide()
         self.ui.deletepositionbt_it.hide()
         if index == 0:
             self.ui.newpositionnameframe.show()
+            self.ui.posdescframe_it.show()
             self.ui.addpositionbt_it.show()
         elif index == 1:
             self.ui.selectpositionframe.show()
             self.ui.newpositionnameframe.show()
+            self.ui.posdescframe_it.show()
             self.ui.editpositionbt_it.show()
         else:
             self.ui.selectpositionframe.show()
@@ -784,14 +842,18 @@ class MainWindow(QMainWindow):
     def position_fields(self, index):
         try:
             self.ui.newposname.setText(self._position[index][1])
+            self.ui.positiondesc_it.setText(self._position[index][2])
         except IndexError:
             pass
 
     def add_position(self):
         self.set_status("Adding position...")
-        position_name = self.ui.newposname.text()
+        position_name = self.ui.newposname.text().strip()
+        pos_description = self.ui.positiondesc_it.toPlainText().strip()
         if position_name == "":
             self.show_message_box("Please enter a valid name")
+        elif pos_description == "":
+            self.show_message_box("Please enter a valid description")
         else:
             index_insert = -1
             for j, i in enumerate(self._position):
@@ -805,7 +867,7 @@ class MainWindow(QMainWindow):
                         previous = i[0]
             if index_insert == -1:
                 index_insert = len(self._position) + 1
-            publish = _database.add_position(index_insert, position_name)
+            publish = _database.add_position(index_insert, position_name, pos_description)
             if publish == 1062:
                 self.show_message_box(f"A branch with existing name and/or address has been recorded in the "
                                       f"database. [{position_name}]")
@@ -823,12 +885,15 @@ class MainWindow(QMainWindow):
 
     def edit_position(self):
         self.set_status("Editing position...")
-        position_name = self.ui.newposname.text()
+        position_name = self.ui.newposname.text().strip()
+        pos_description = self.ui.positiondesc_it.toPlainText().strip()
         if position_name == "":
             self.show_message_box("Please enter a valid name")
+        elif pos_description == "":
+            self.show_message_box("Please enter a valid description")
         else:
             update_pos = _database.edit_position(self._position[self.ui.selectposition.currentIndex()][0],
-                                                 position_name)
+                                                 position_name, pos_description)
             if update_pos == 1062:
                 self.show_message_box(f"A branch with existing name and/or address has been recorded in the "
                                       f"database. [{position_name}]")
@@ -959,53 +1024,57 @@ class MainWindow(QMainWindow):
         passw = self.ui.password_addedit_it
         pos = self.ui.position_addedit_it.currentText()
         index = self.ui.employeetable_editdelete_it.currentRow()
-        if firstn == "" or lastn == "" or addr == "":
-            self.show_message_box("Please enter valid values in the fields above.")
-        elif math.floor((datetime.date.today() - datetime.date(born.date().year(), born.date().month(),
-                                                               born.date().day())).days / 365) < 17:
-            self.show_message_box("Employee age must be 17 or more.")
-        elif int(phone.text()) < 1000:
-            self.show_message_box("Phone number length cannot be shorter than 4 digits.")
-        elif (pos == 'Manager' or pos == 'IT' or pos == 'CEO' or pos == 'Co-Founder') and passw == "":
-            self.show_message_box(f"Please enter a pssword for the new {pos}")
-        else:
-            add_emp = edit_emp = 0
-            if action == 1:  # add
-                self.set_status("Adding employee...")
-                add_emp = _database.add_employee(
-                    self._branches_it[self.ui.branchchoose_addedit_it.currentIndex()][0],
-                    firstn.text(), lastn.text(),
-                    self.ui.gender_addedit_it.currentText(),
-                    f'{born.date().year()}-{born.date().month()}-{born.date().day()}',
-                    self._position[self.ui.position_addedit_it.currentIndex()][0],
-                    addr.toPlainText(), int(phone.text()), passw.text()
-                )
-            elif action == 2:  # edit
-                self.set_status("Editing employee...")
-                edit_emp = _database.edit_employee(
-                    self._employee_list[index][0], firstn.text(), lastn.text(), self.ui.gender_addedit_it.currentText(),
-                    f'{born.date().year()}-{born.date().month()}-{born.date().day()}',
-                    self._position[self.ui.position_addedit_it.currentIndex()][0],
-                    addr.toPlainText(), int(phone.text()), passw.text()
-                )
-            if add_emp == 2013 or edit_emp == 2013:
-                self.show_message_box("Connection error. Please check your network connection and try again. "
-                                      "If the problem still persists, restart the application.")
-                self.set_status("Failed")
+        try:
+            if firstn == "" or lastn == "" or addr == "":
+                self.show_message_box("Please enter valid values in the fields above.")
+            elif math.floor((datetime.date.today() - datetime.date(born.date().year(), born.date().month(),
+                                                                   born.date().day())).days / 365) < 17:
+                self.show_message_box("Employee age must be 17 or more.")
+            elif int(phone.text()) < 1000:
+                self.show_message_box("Phone number length cannot be shorter than 4 digits.")
+            elif (pos == 'Manager' or pos == 'IT' or pos == 'CEO' or pos == 'Co-Founder') and passw == "":
+                self.show_message_box(f"Please enter a pssword for the new {pos}")
             else:
-                firstn.clear()
-                lastn.clear()
-                born.setDate(QDate(2000, 1, 1))
-                phone.clear()
-                addr.clear()
-                passw.clear()
-                self.ui.employeeactionchoose_it.setCurrentIndex(0)
-                self.ui.branchchoose_addedit_it.setCurrentIndex(0)
-                self.ui.position_addedit_it.setCurrentIndex(0)
-                self.ui.gender_addedit_it.setCurrentIndex(0)
-                self.show_message_box("Success!")
-                self.set_widget(self.ui.it)
-                self.set_status("OK")
+                add_emp = edit_emp = 0
+                if action == 1:  # add
+                    self.set_status("Adding employee...")
+                    add_emp = _database.add_employee(
+                        self._branches_it[self.ui.branchchoose_addedit_it.currentIndex()][0],
+                        firstn.text(), lastn.text(),
+                        self.ui.gender_addedit_it.currentText(),
+                        f'{born.date().year()}-{born.date().month()}-{born.date().day()}',
+                        self._position[self.ui.position_addedit_it.currentIndex()][0],
+                        addr.toPlainText(), int(phone.text()), passw.text()
+                    )
+                elif action == 2:  # edit
+                    self.set_status("Editing employee...")
+                    edit_emp = _database.edit_employee(
+                        self._employee_list[index][0], firstn.text(), lastn.text(),
+                        self.ui.gender_addedit_it.currentText(),
+                        f'{born.date().year()}-{born.date().month()}-{born.date().day()}',
+                        self._position[self.ui.position_addedit_it.currentIndex()][0],
+                        addr.toPlainText(), int(phone.text()), passw.text()
+                    )
+                if add_emp == 2013 or edit_emp == 2013:
+                    self.show_message_box("Connection error. Please check your network connection and try again. "
+                                          "If the problem still persists, restart the application.")
+                    self.set_status("Failed")
+                else:
+                    firstn.clear()
+                    lastn.clear()
+                    born.setDate(QDate(2000, 1, 1))
+                    phone.clear()
+                    addr.clear()
+                    passw.clear()
+                    self.ui.employeeactionchoose_it.setCurrentIndex(0)
+                    self.ui.branchchoose_addedit_it.setCurrentIndex(0)
+                    self.ui.position_addedit_it.setCurrentIndex(0)
+                    self.ui.gender_addedit_it.setCurrentIndex(0)
+                    self.show_message_box("Success!")
+                    self.set_widget(self.ui.it)
+                    self.set_status("OK")
+        except ValueError:
+            self.show_message_box("Please enter valid numbers.")
 
     def delete_employee(self):
         self.set_status("Deleting employee...")
@@ -1068,8 +1137,8 @@ class MainWindow(QMainWindow):
     def set_manufacturer_fields(self, index):
         try:
             self.ui.newmanufacturername.setText(self._manufacturer[index][1])
-            self.ui.mcountry_it.setText(self._manufacturer[index][-2])
-            self.ui.yearestablished_it.setValue(self._manufacturer[index][-1])
+            self.ui.mcountry_it.setText(self._manufacturer[index][2])
+            self.ui.yearestablished_it.setValue(self._manufacturer[index][3])
         except IndexError:
             pass
 
@@ -1143,15 +1212,18 @@ class MainWindow(QMainWindow):
     def cartype_it(self, index):
         self.ui.selectcartypeframe.hide()
         self.ui.newcartypenameframe.hide()
+        self.ui.inventedframe_it.hide()
         self.ui.addcartypebt.hide()
         self.ui.editcartypebt.hide()
         self.ui.deletecartypebt.hide()
         if index == 0:
             self.ui.newcartypenameframe.show()
+            self.ui.inventedframe_it.show()
             self.ui.addcartypebt.show()
         elif index == 1:
             self.ui.selectcartypeframe.show()
             self.ui.newcartypenameframe.show()
+            self.ui.inventedframe_it.show()
             self.ui.editcartypebt.show()
         else:
             self.ui.selectcartypeframe.show()
@@ -1159,14 +1231,18 @@ class MainWindow(QMainWindow):
 
     def set_cartype_fields(self, index):
         try:
-            self.ui.newcartypename.setText(self._cartypes_it[index][-1])
+            self.ui.newcartypename.setText(self._cartypes_it[index][1])
+            self.ui.invented_it.setValue(self._cartypes_it[index][2])
         except IndexError:
             pass
 
     def add_edit_cartype(self, action: int):
         cartype_name = self.ui.newcartypename
-        if cartype_name == "":
+        year_invented = self.ui.invented_it
+        if cartype_name.text() == "":
             self.show_message_box("Please enter a valid name")
+        elif year_invented.value() <= 0:
+            self.show_message_box("Please enter a valid year")
         else:
             if action == 1:  # add
                 self.set_status("Adding a new car type...")
@@ -1182,7 +1258,7 @@ class MainWindow(QMainWindow):
                             previous = cartype[0]
                 if index_insert == -1:
                     index_insert = len(self._cartypes_it) + 1
-                add = _database.add_cartype(index_insert, cartype_name.text())
+                add = _database.add_cartype(index_insert, cartype_name.text(), year_invented.value())
                 if add == 1062:
                     self.show_message_box(f"A car type with existing name has been recorded in the "
                                           f"database. [{cartype_name.text()}]")
@@ -1192,7 +1268,8 @@ class MainWindow(QMainWindow):
                                           "If the problem still persists, restart the application.")
                     self.set_status("Failed")
                 else:
-                    self.ui.newcartypename.clear()
+                    cartype_name.clear()
+                    year_invented.setValue(0)
                     self.show_message_box("Success!")
                     self.set_widget(self.ui.it)
                     self.set_status("OK")
@@ -1200,7 +1277,7 @@ class MainWindow(QMainWindow):
                 self.set_status("Editing car type...")
                 index = self.ui.selectcartype.currentIndex()
                 type_id = self._cartypes_it[index][0]
-                edit = _database.edit_cartype(type_id, cartype_name.text())
+                edit = _database.edit_cartype(type_id, cartype_name.text(), year_invented.value())
                 if edit == 1062:
                     self.show_message_box(f"A car type with existing name has been recorded in the "
                                           f"database. [{cartype_name.text()}]")
@@ -1538,6 +1615,8 @@ class MainWindow(QMainWindow):
         if widget_name == 'manager':
             self.refresh_branch()
             self.refresh_cartype()
+            self.refresh_manufacturer()
+            self.refresh_position_it()
             self.ui.stackedWidget.setCurrentWidget(widget)
 
         elif widget_name == 'login':
@@ -1557,6 +1636,11 @@ class MainWindow(QMainWindow):
             self.refresh_cartype_it()
             self.refresh_position_it()
             self.refresh_manufacturer()
+            self.ui.newmanufacturername.clear()
+            self.ui.mcountry_it.clear()
+            self.ui.yearestablished_it.setValue(0)
+            self.ui.newposname.clear()
+            self.ui.positiondesc_it.clear()
             self.ui.stackedWidget.setCurrentWidget(widget)
 
         elif widget_name == 'profile':
