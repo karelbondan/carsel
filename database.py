@@ -120,20 +120,22 @@ class DatabaseCarSel:
         return list(self._cursor)
 
     # POSITION METHODS
-    def add_position(self, index: int, branch_name: str):
+    def add_position(self, index: int, branch_name: str, role_description: str):
         self.refresh()
         try:
-            self._cursor.execute(f"insert into Role(role, roleName) values ({index}, '{branch_name}')")
+            self._cursor.execute(f"insert into Role(role, roleName, roleDescription) "
+                                 f"values ({index}, '{branch_name}', '{role_description}')")
             self._mydb.commit()
             return True
         except mysql.connector.Error as e:
             print(e)
             return e.errno
 
-    def edit_position(self, role_id: int, role_name: str):
+    def edit_position(self, role_id: int, role_name: str, role_description: str):
         self.refresh()
         try:
-            self._cursor.execute(f"update Role set roleName='{role_name}' where role={role_id}")
+            self._cursor.execute(f"update Role set roleName='{role_name}', roleDescription='{role_description}' "
+                                 f"where role={role_id}")
         except mysql.connector.Error as e:
             print(e)
             return e.errno
@@ -179,21 +181,22 @@ class DatabaseCarSel:
             return e.errno
 
     # CARTYPE METHODS
-    def add_cartype(self, type_id: int, cartype_name: str):
+    def add_cartype(self, type_id: int, cartype_name: str, year_invented: int):
         self.refresh()
         try:
-            self._cursor.execute(f"insert into CarType(carType, typeName) "
-                                 f"values ({type_id}, '{cartype_name}')")
+            self._cursor.execute(f"insert into CarType(carType, typeName, invented) "
+                                 f"values ({type_id}, '{cartype_name}', {year_invented})")
             self._mydb.commit()
             return True
         except mysql.connector.Error as e:
             print(e)
             return e.errno
 
-    def edit_cartype(self, type_id: int, cartype_name: str):
+    def edit_cartype(self, type_id: int, cartype_name: str, year_invented: int):
         self.refresh()
         try:
-            self._cursor.execute(f"update CarType set typeName='{cartype_name}' where carType={type_id}")
+            self._cursor.execute(f"update CarType set typeName='{cartype_name}', invented={year_invented} "
+                                 f"where carType={type_id}")
             self._mydb.commit()
             return True
         except mysql.connector.Error as e:
@@ -220,6 +223,9 @@ class DatabaseCarSel:
                                  f"values "
                                  f"({manufacturer}, {branch}, {cartype}, '{carname}', {year}, {topspeed}, "
                                  f"{horsepower}, {seatcount}, {length}, {width}, curdate(), {price})")
+            self._cursor.execute(f"call update_cartype_count({cartype})")
+            self._cursor.execute(f"call branch_counts({branch})")
+            self._cursor.execute(f"call manufacturer_count({manufacturer})")
             self._mydb.commit()
             return True
         except mysql.connector.Error as e:
@@ -245,7 +251,12 @@ class DatabaseCarSel:
         self.refresh()
         try:
             for ids in carid:
+                self._cursor.execute(f"select carType, branch, manufacturer from Car where carID={ids}")
+                cartype, branch, manufacturer = list(self._cursor)[0]
                 self._cursor.execute(f"delete from Car where carID={ids}")
+                self._cursor.execute(f"call update_cartype_count({cartype})")
+                self._cursor.execute(f"call branch_counts({branch})")
+                self._cursor.execute(f"call manufacturer_count({manufacturer})")
             self._mydb.commit()
             return True
         except mysql.connector.Error as e:
@@ -256,7 +267,6 @@ class DatabaseCarSel:
     # EMPLOYEE METHODS
     def employee_list(self, branch_name: str):
         if branch_name != "All":
-            # self._cursor.execute(f"select * from Employee where branchID={branch_id}")
             self._cursor.execute(f"select "
                                  f"E.employeeID, "
                                  f"(select branchName from Branch where E.branchID = Branch.branchID), "
@@ -284,7 +294,6 @@ class DatabaseCarSel:
                                  "E.dateJoined "
                                  "from "
                                  "Employee E")
-            # self._cursor.execute("select * from Employee")
         return list(self._cursor)
 
     def employee_pass(self, employee_id: int):
@@ -298,6 +307,8 @@ class DatabaseCarSel:
                                  f"address, phoneNo, dateJoined, password) "
                                  f"values "
                                  f"({branch}, '{f_name}', '{l_name}', '{gender}', '{born}', {position}, '{address}', {phone}, curdate(), '{password}')")
+            self._cursor.execute(f"call update_count_role({position})")
+            self._cursor.execute(f"call branch_counts({branch})")
             self._mydb.commit()
             return True
         except mysql.connector.Error as e:
@@ -318,22 +329,12 @@ class DatabaseCarSel:
             return e.errno
 
     def delete_employee(self, employee_to_delete: list):  # employee_id: int):
-        # try:
-        #     self._cursor.execute(f"delete from Employee where employeeID={employee_id}")
-        #     self._mydb.commit()
-        #     return True
-        # except mysql.connector.Error as e:
-        #     print(e)
-        #     return e.errno
-        # delete = ""
         try:
-            # for index, employee in enumerate(employee_to_delete):
-            #     if index == len(employee_to_delete)-1:
-            #         delete += f"delete from Employee where employeeID={employee};"
-            #     else:
-            #         delete += f"delete from Employee where employeeID={employee};\n"
-            # print(delete)
             for employee in employee_to_delete:
+                self._cursor.execute(f"select role, branchID from Employee where employeeID={employee}")
+                position, branch = list(self._cursor)[0]
+                self._cursor.execute(f"call update_count_role({position})")
+                self._cursor.execute(f"call branch_counts({branch})")
                 self._cursor.execute(f"delete from Employee where employeeID={employee}")
             self._mydb.commit()
             return True
