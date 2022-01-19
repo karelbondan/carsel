@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'GUIvXxyRP.ui'
+## Form generated from reading UI file 'GUIhROJWL.ui'
 ##
 ## Created by: Qt User Interface Compiler version 5.15.2
 ##
@@ -17,7 +17,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(811, 673)
+        MainWindow.resize(888, 671)
         MainWindow.setMinimumSize(QSize(0, 0))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -272,7 +272,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -450, 754, 2579))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, -1419, 831, 3116))
         self.verticalLayout = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.frame_8 = QFrame(self.scrollAreaWidgetContents_2)
@@ -337,6 +337,11 @@ class Ui_MainWindow(object):
         self.establishedlabel_manager.setObjectName(u"establishedlabel_manager")
 
         self.verticalLayout_3.addWidget(self.establishedlabel_manager)
+
+        self.employeecount_manager_2 = QLabel(self.frame_4)
+        self.employeecount_manager_2.setObjectName(u"employeecount_manager_2")
+
+        self.verticalLayout_3.addWidget(self.employeecount_manager_2)
 
 
         self.verticalLayout.addWidget(self.frame_4)
@@ -641,6 +646,11 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_5.addWidget(self.establishedlabel_manager_2)
 
+        self.productcount_branch = QLabel(self.frame_14)
+        self.productcount_branch.setObjectName(u"productcount_branch")
+
+        self.verticalLayout_5.addWidget(self.productcount_branch)
+
 
         self.verticalLayout_7.addWidget(self.frame_14)
 
@@ -711,6 +721,32 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.frame_16)
 
+        self.frame_92 = QFrame(self.frame_10)
+        self.frame_92.setObjectName(u"frame_92")
+        self.frame_92.setMaximumSize(QSize(500, 16777215))
+        self.frame_92.setFrameShape(QFrame.StyledPanel)
+        self.frame_92.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_94 = QHBoxLayout(self.frame_92)
+        self.horizontalLayout_94.setObjectName(u"horizontalLayout_94")
+        self.label_98 = QLabel(self.frame_92)
+        self.label_98.setObjectName(u"label_98")
+        self.label_98.setMinimumSize(QSize(120, 0))
+        self.label_98.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_94.addWidget(self.label_98)
+
+        self.manuselect_manager = QComboBox(self.frame_92)
+        self.manuselect_manager.addItem("")
+        self.manuselect_manager.addItem("")
+        self.manuselect_manager.addItem("")
+        self.manuselect_manager.setObjectName(u"manuselect_manager")
+        self.manuselect_manager.setMinimumSize(QSize(0, 25))
+
+        self.horizontalLayout_94.addWidget(self.manuselect_manager)
+
+
+        self.verticalLayout_7.addWidget(self.frame_92)
+
         self.cartypeframe_manager = QFrame(self.frame_10)
         self.cartypeframe_manager.setObjectName(u"cartypeframe_manager")
         self.cartypeframe_manager.setMaximumSize(QSize(500, 16777215))
@@ -720,8 +756,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.setObjectName(u"horizontalLayout_17")
         self.label_21 = QLabel(self.cartypeframe_manager)
         self.label_21.setObjectName(u"label_21")
-        self.label_21.setMinimumSize(QSize(90, 0))
-        self.label_21.setMaximumSize(QSize(90, 16777215))
+        self.label_21.setMinimumSize(QSize(120, 0))
+        self.label_21.setMaximumSize(QSize(120, 16777215))
 
         self.horizontalLayout_17.addWidget(self.label_21)
 
@@ -1162,6 +1198,188 @@ class Ui_MainWindow(object):
 
         self.verticalLayout.addWidget(self.frame_10)
 
+        self.frame_82 = QFrame(self.scrollAreaWidgetContents_2)
+        self.frame_82.setObjectName(u"frame_82")
+        self.frame_82.setMinimumSize(QSize(0, 0))
+        self.frame_82.setFrameShape(QFrame.StyledPanel)
+        self.frame_82.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_40 = QVBoxLayout(self.frame_82)
+        self.verticalLayout_40.setObjectName(u"verticalLayout_40")
+        self.frame_84 = QFrame(self.frame_82)
+        self.frame_84.setObjectName(u"frame_84")
+        self.frame_84.setFrameShape(QFrame.StyledPanel)
+        self.frame_84.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_90 = QHBoxLayout(self.frame_84)
+        self.horizontalLayout_90.setObjectName(u"horizontalLayout_90")
+        self.label_82 = QLabel(self.frame_84)
+        self.label_82.setObjectName(u"label_82")
+        self.label_82.setStyleSheet(u"font: 75 14pt \"MS Shell Dlg 2\";")
+
+        self.horizontalLayout_90.addWidget(self.label_82)
+
+
+        self.verticalLayout_40.addWidget(self.frame_84)
+
+        self.frame_83 = QFrame(self.frame_82)
+        self.frame_83.setObjectName(u"frame_83")
+        self.frame_83.setMaximumSize(QSize(500, 16777215))
+        self.frame_83.setFrameShape(QFrame.StyledPanel)
+        self.frame_83.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_89 = QHBoxLayout(self.frame_83)
+        self.horizontalLayout_89.setObjectName(u"horizontalLayout_89")
+        self.label_60 = QLabel(self.frame_83)
+        self.label_60.setObjectName(u"label_60")
+        self.label_60.setMinimumSize(QSize(120, 0))
+        self.label_60.setMaximumSize(QSize(90, 16777215))
+
+        self.horizontalLayout_89.addWidget(self.label_60)
+
+        self.branchchoosecount_counts = QComboBox(self.frame_83)
+        self.branchchoosecount_counts.addItem("")
+        self.branchchoosecount_counts.setObjectName(u"branchchoosecount_counts")
+        self.branchchoosecount_counts.setMinimumSize(QSize(0, 25))
+
+        self.horizontalLayout_89.addWidget(self.branchchoosecount_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_83)
+
+        self.frame_85 = QFrame(self.frame_82)
+        self.frame_85.setObjectName(u"frame_85")
+        self.frame_85.setFrameShape(QFrame.StyledPanel)
+        self.frame_85.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_36 = QVBoxLayout(self.frame_85)
+        self.verticalLayout_36.setObjectName(u"verticalLayout_36")
+        self.employeecount_counts = QLabel(self.frame_85)
+        self.employeecount_counts.setObjectName(u"employeecount_counts")
+
+        self.verticalLayout_36.addWidget(self.employeecount_counts)
+
+        self.productcount_counts = QLabel(self.frame_85)
+        self.productcount_counts.setObjectName(u"productcount_counts")
+
+        self.verticalLayout_36.addWidget(self.productcount_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_85)
+
+        self.frame_91 = QFrame(self.frame_82)
+        self.frame_91.setObjectName(u"frame_91")
+        self.frame_91.setMaximumSize(QSize(500, 16777215))
+        self.frame_91.setFrameShape(QFrame.StyledPanel)
+        self.frame_91.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_93 = QHBoxLayout(self.frame_91)
+        self.horizontalLayout_93.setObjectName(u"horizontalLayout_93")
+        self.label_106 = QLabel(self.frame_91)
+        self.label_106.setObjectName(u"label_106")
+        self.label_106.setMinimumSize(QSize(120, 0))
+        self.label_106.setMaximumSize(QSize(90, 16777215))
+
+        self.horizontalLayout_93.addWidget(self.label_106)
+
+        self.positionchoose_counts = QComboBox(self.frame_91)
+        self.positionchoose_counts.addItem("")
+        self.positionchoose_counts.setObjectName(u"positionchoose_counts")
+        self.positionchoose_counts.setMinimumSize(QSize(0, 25))
+
+        self.horizontalLayout_93.addWidget(self.positionchoose_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_91)
+
+        self.frame_90 = QFrame(self.frame_82)
+        self.frame_90.setObjectName(u"frame_90")
+        self.frame_90.setFrameShape(QFrame.StyledPanel)
+        self.frame_90.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_39 = QVBoxLayout(self.frame_90)
+        self.verticalLayout_39.setObjectName(u"verticalLayout_39")
+        self.employeenrolled = QLabel(self.frame_90)
+        self.employeenrolled.setObjectName(u"employeenrolled")
+
+        self.verticalLayout_39.addWidget(self.employeenrolled)
+
+
+        self.verticalLayout_40.addWidget(self.frame_90)
+
+        self.frame_86 = QFrame(self.frame_82)
+        self.frame_86.setObjectName(u"frame_86")
+        self.frame_86.setMaximumSize(QSize(500, 16777215))
+        self.frame_86.setFrameShape(QFrame.StyledPanel)
+        self.frame_86.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_91 = QHBoxLayout(self.frame_86)
+        self.horizontalLayout_91.setObjectName(u"horizontalLayout_91")
+        self.label_93 = QLabel(self.frame_86)
+        self.label_93.setObjectName(u"label_93")
+        self.label_93.setMinimumSize(QSize(120, 0))
+        self.label_93.setMaximumSize(QSize(90, 16777215))
+
+        self.horizontalLayout_91.addWidget(self.label_93)
+
+        self.manufacturerchoose_counts = QComboBox(self.frame_86)
+        self.manufacturerchoose_counts.addItem("")
+        self.manufacturerchoose_counts.setObjectName(u"manufacturerchoose_counts")
+        self.manufacturerchoose_counts.setMinimumSize(QSize(0, 25))
+
+        self.horizontalLayout_91.addWidget(self.manufacturerchoose_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_86)
+
+        self.frame_87 = QFrame(self.frame_82)
+        self.frame_87.setObjectName(u"frame_87")
+        self.frame_87.setFrameShape(QFrame.StyledPanel)
+        self.frame_87.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_37 = QVBoxLayout(self.frame_87)
+        self.verticalLayout_37.setObjectName(u"verticalLayout_37")
+        self.manu_onsale_counts = QLabel(self.frame_87)
+        self.manu_onsale_counts.setObjectName(u"manu_onsale_counts")
+
+        self.verticalLayout_37.addWidget(self.manu_onsale_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_87)
+
+        self.frame_88 = QFrame(self.frame_82)
+        self.frame_88.setObjectName(u"frame_88")
+        self.frame_88.setMaximumSize(QSize(500, 16777215))
+        self.frame_88.setFrameShape(QFrame.StyledPanel)
+        self.frame_88.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_92 = QHBoxLayout(self.frame_88)
+        self.horizontalLayout_92.setObjectName(u"horizontalLayout_92")
+        self.label_100 = QLabel(self.frame_88)
+        self.label_100.setObjectName(u"label_100")
+        self.label_100.setMinimumSize(QSize(120, 0))
+        self.label_100.setMaximumSize(QSize(90, 16777215))
+
+        self.horizontalLayout_92.addWidget(self.label_100)
+
+        self.cartypechoose_counts = QComboBox(self.frame_88)
+        self.cartypechoose_counts.addItem("")
+        self.cartypechoose_counts.setObjectName(u"cartypechoose_counts")
+        self.cartypechoose_counts.setMinimumSize(QSize(0, 25))
+
+        self.horizontalLayout_92.addWidget(self.cartypechoose_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_88)
+
+        self.frame_89 = QFrame(self.frame_82)
+        self.frame_89.setObjectName(u"frame_89")
+        self.frame_89.setFrameShape(QFrame.StyledPanel)
+        self.frame_89.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_38 = QVBoxLayout(self.frame_89)
+        self.verticalLayout_38.setObjectName(u"verticalLayout_38")
+        self.cartype_onsale_counts = QLabel(self.frame_89)
+        self.cartype_onsale_counts.setObjectName(u"cartype_onsale_counts")
+
+        self.verticalLayout_38.addWidget(self.cartype_onsale_counts)
+
+
+        self.verticalLayout_40.addWidget(self.frame_89)
+
+
+        self.verticalLayout.addWidget(self.frame_82)
+
         self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
 
         self.verticalLayout_26.addWidget(self.scrollArea)
@@ -1239,7 +1457,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, -846, 754, 4174))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, -3787, 831, 4317))
         self.verticalLayout_9 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.frame_70 = QFrame(self.scrollAreaWidgetContents)
@@ -1517,6 +1735,29 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_17.addWidget(self.newpositionnameframe)
+
+        self.posdescframe_it = QFrame(self.frame_31)
+        self.posdescframe_it.setObjectName(u"posdescframe_it")
+        self.posdescframe_it.setMinimumSize(QSize(0, 0))
+        self.posdescframe_it.setMaximumSize(QSize(500, 16777215))
+        self.posdescframe_it.setFrameShape(QFrame.StyledPanel)
+        self.posdescframe_it.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_79 = QHBoxLayout(self.posdescframe_it)
+        self.horizontalLayout_79.setObjectName(u"horizontalLayout_79")
+        self.label_69 = QLabel(self.posdescframe_it)
+        self.label_69.setObjectName(u"label_69")
+        self.label_69.setMinimumSize(QSize(120, 0))
+        self.label_69.setMaximumSize(QSize(120, 16777215))
+
+        self.horizontalLayout_79.addWidget(self.label_69)
+
+        self.positiondesc_it = QTextEdit(self.posdescframe_it)
+        self.positiondesc_it.setObjectName(u"positiondesc_it")
+
+        self.horizontalLayout_79.addWidget(self.positiondesc_it)
+
+
+        self.verticalLayout_17.addWidget(self.posdescframe_it)
 
         self.frame_34 = QFrame(self.frame_31)
         self.frame_34.setObjectName(u"frame_34")
@@ -2301,6 +2542,30 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_23.addWidget(self.newcartypenameframe)
 
+        self.inventedframe_it = QFrame(self.frame_45)
+        self.inventedframe_it.setObjectName(u"inventedframe_it")
+        self.inventedframe_it.setMinimumSize(QSize(0, 0))
+        self.inventedframe_it.setMaximumSize(QSize(500, 16777215))
+        self.inventedframe_it.setFrameShape(QFrame.StyledPanel)
+        self.inventedframe_it.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_88 = QHBoxLayout(self.inventedframe_it)
+        self.horizontalLayout_88.setObjectName(u"horizontalLayout_88")
+        self.label_79 = QLabel(self.inventedframe_it)
+        self.label_79.setObjectName(u"label_79")
+        self.label_79.setMinimumSize(QSize(150, 0))
+        self.label_79.setMaximumSize(QSize(150, 16777215))
+
+        self.horizontalLayout_88.addWidget(self.label_79)
+
+        self.invented_it = QSpinBox(self.inventedframe_it)
+        self.invented_it.setObjectName(u"invented_it")
+        self.invented_it.setMaximum(99999)
+
+        self.horizontalLayout_88.addWidget(self.invented_it)
+
+
+        self.verticalLayout_23.addWidget(self.inventedframe_it)
+
         self.frame_47 = QFrame(self.frame_45)
         self.frame_47.setObjectName(u"frame_47")
         self.frame_47.setFrameShape(QFrame.StyledPanel)
@@ -2868,7 +3133,7 @@ class Ui_MainWindow(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 771, 532))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 771, 530))
         self.verticalLayout_27 = QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout_27.setObjectName(u"verticalLayout_27")
         self.frame_97 = QFrame(self.scrollAreaWidgetContents_3)
@@ -3232,7 +3497,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
 
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -3261,6 +3526,7 @@ class Ui_MainWindow(object):
 
         self.addresslabel_manager.setText(QCoreApplication.translate("MainWindow", u"Address: ", None))
         self.establishedlabel_manager.setText(QCoreApplication.translate("MainWindow", u"Established: ", None))
+        self.employeecount_manager_2.setText(QCoreApplication.translate("MainWindow", u"Employee count in branch:", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"What to display in the table?", None))
         self.firstnamecheckboxemployee_manager.setText(QCoreApplication.translate("MainWindow", u"First name", None))
         self.lastnamecheckboxemployee_manager.setText(QCoreApplication.translate("MainWindow", u"Last name", None))
@@ -3319,6 +3585,7 @@ class Ui_MainWindow(object):
 
         self.addresslabel_manager_2.setText(QCoreApplication.translate("MainWindow", u"Address: ", None))
         self.establishedlabel_manager_2.setText(QCoreApplication.translate("MainWindow", u"Established: ", None))
+        self.productcount_branch.setText(QCoreApplication.translate("MainWindow", u"Product count in branch:", None))
         self.label_17.setText(QCoreApplication.translate("MainWindow", u"What to display in the table?", None))
         self.cartype_manager.setText(QCoreApplication.translate("MainWindow", u"Type ", None))
         self.carname_manager.setText(QCoreApplication.translate("MainWindow", u"Name", None))
@@ -3330,6 +3597,11 @@ class Ui_MainWindow(object):
         self.width_manager.setText(QCoreApplication.translate("MainWindow", u"Width", None))
         self.dateadded_manager.setText(QCoreApplication.translate("MainWindow", u"Date added", None))
         self.price_manager.setText(QCoreApplication.translate("MainWindow", u"Price", None))
+        self.label_98.setText(QCoreApplication.translate("MainWindow", u"Display manufacturer", None))
+        self.manuselect_manager.setItemText(0, QCoreApplication.translate("MainWindow", u"All", None))
+        self.manuselect_manager.setItemText(1, QCoreApplication.translate("MainWindow", u"Male", None))
+        self.manuselect_manager.setItemText(2, QCoreApplication.translate("MainWindow", u"Female", None))
+
         self.label_21.setText(QCoreApplication.translate("MainWindow", u"Display car type", None))
         self.cartypechoose_manager.setItemText(0, QCoreApplication.translate("MainWindow", u"All", None))
         self.cartypechoose_manager.setItemText(1, QCoreApplication.translate("MainWindow", u"Male", None))
@@ -3382,6 +3654,24 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem18.setText(QCoreApplication.translate("MainWindow", u"Date added ", None));
         ___qtablewidgetitem19 = self.producttable_manager.horizontalHeaderItem(11)
         ___qtablewidgetitem19.setText(QCoreApplication.translate("MainWindow", u"Price", None));
+        self.label_82.setText(QCoreApplication.translate("MainWindow", u"Counts", None))
+        self.label_60.setText(QCoreApplication.translate("MainWindow", u"Select branch", None))
+        self.branchchoosecount_counts.setItemText(0, QCoreApplication.translate("MainWindow", u"New Item", None))
+
+        self.employeecount_counts.setText(QCoreApplication.translate("MainWindow", u"Employee count:", None))
+        self.productcount_counts.setText(QCoreApplication.translate("MainWindow", u"Product count:", None))
+        self.label_106.setText(QCoreApplication.translate("MainWindow", u"Select position", None))
+        self.positionchoose_counts.setItemText(0, QCoreApplication.translate("MainWindow", u"New Item", None))
+
+        self.employeenrolled.setText(QCoreApplication.translate("MainWindow", u"Employee enrolled: ", None))
+        self.label_93.setText(QCoreApplication.translate("MainWindow", u"Select manufacturer", None))
+        self.manufacturerchoose_counts.setItemText(0, QCoreApplication.translate("MainWindow", u"New Item", None))
+
+        self.manu_onsale_counts.setText(QCoreApplication.translate("MainWindow", u"Product on sale:", None))
+        self.label_100.setText(QCoreApplication.translate("MainWindow", u"Select car type", None))
+        self.cartypechoose_counts.setItemText(0, QCoreApplication.translate("MainWindow", u"New Item", None))
+
+        self.cartype_onsale_counts.setText(QCoreApplication.translate("MainWindow", u"Product on sale:", None))
         self.refrehsbuttonit.setText("")
         self.label_58.setText(QCoreApplication.translate("MainWindow", u"IT Section", None))
         self.profilebuttonit.setText("")
@@ -3421,7 +3711,8 @@ class Ui_MainWindow(object):
         self.selectposition.setItemText(5, QCoreApplication.translate("MainWindow", u"5", None))
         self.selectposition.setItemText(6, QCoreApplication.translate("MainWindow", u"6", None))
 
-        self.label_64.setText(QCoreApplication.translate("MainWindow", u"New position name", None))
+        self.label_64.setText(QCoreApplication.translate("MainWindow", u"Position name", None))
+        self.label_69.setText(QCoreApplication.translate("MainWindow", u"Position description", None))
         self.addpositionbt_it.setText(QCoreApplication.translate("MainWindow", u"Add", None))
         self.editpositionbt_it.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.deletepositionbt_it.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
@@ -3526,7 +3817,8 @@ class Ui_MainWindow(object):
         self.selectcartype.setItemText(5, QCoreApplication.translate("MainWindow", u"5", None))
         self.selectcartype.setItemText(6, QCoreApplication.translate("MainWindow", u"6", None))
 
-        self.label_83.setText(QCoreApplication.translate("MainWindow", u"New car type name", None))
+        self.label_83.setText(QCoreApplication.translate("MainWindow", u"Car type name", None))
+        self.label_79.setText(QCoreApplication.translate("MainWindow", u"Invented", None))
         self.addcartypebt.setText(QCoreApplication.translate("MainWindow", u"Add", None))
         self.editcartypebt.setText(QCoreApplication.translate("MainWindow", u"Edit", None))
         self.deletecartypebt.setText(QCoreApplication.translate("MainWindow", u"Delete", None))
